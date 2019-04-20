@@ -11,6 +11,7 @@ const path = require('path');
 require('dotenv').config();
 
 // local dependencies
+const api = require('./routes/api');
 
 // initialize express app
 const app = express();
@@ -27,6 +28,7 @@ app.use(session({
   saveUninitialized: 'true'
 }));
 
+app.use('/api', api);
 app.use(express.static(publicPath));
 
 app.get('/', function (req, res) {

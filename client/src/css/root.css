@@ -1,0 +1,16 @@
+.rootContainer {
+    padding: 5vh 5vw;
+}
+
+.rootPasswordInput {
+    width: 50vw;
+}
+
+.xlink {
+    display: flex;
+    flex-direction: row;
+}
+
+.xlinkSearch {
+    width: 50vw;
+}
