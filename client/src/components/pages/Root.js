@@ -9,8 +9,8 @@ export default class Root extends Component {
         this.state = {
             password: "",
             filter: "",
-            links: {},
-            filteredLinks: {},
+            links: [],
+            filteredLinks: [],
         };
     }
 
@@ -29,19 +29,19 @@ export default class Root extends Component {
                     <button onClick={this.submitPassword}>Go!</button>
                 </div>
                 <div className="rootResult">
-                    {Object.keys(this.state.links).length == 0 ? (null) :
+                    {this.state.links.length == 0 ? (null) :
                     <div className="xlinkSearch">
                         <input className="rootFilterInput" name="filter" id="filter" onChange={this.handleChange} value={this.state.filter} placeholder="Search for an xlink." />
                     </div>
                     }
-                    {Object.keys(filteredLinks).map((key, ind) => (
+                    {filteredLinks.map((link, ind) => (
                         <div className="xlink">
                             <div className="xlinkKey" key={`key${ind}`}>
-                                {key}
+                                {link.key}
                             </div>
                             <p>-></p>
                             <div className="xlinkValue" key={`value${ind}`}>
-                                <a href={filteredLinks[key]}>{filteredLinks[key]}</a>
+                                <a href={link.url}>{link.url}</a>
                             </div>
                         </div>
                     ))}
@@ -62,12 +62,15 @@ export default class Root extends Component {
     }
 
     filterLinks = () => {
-        let result = {};
+        let result = [];
         let filter = this.state.filter;
         let links = this.state.links;
-        Object.keys(links).forEach(key => {
-            if (key.indexOf(filter) != -1) {
-                result[key] = links[key];
+        links.forEach(link => {
+            if (link.key.indexOf(filter) != -1) {
+                result.push({
+                    key: link.key,
+                    url: link.url,
+                });
             }
         });
         this.setState({
@@ -76,14 +79,11 @@ export default class Root extends Component {
     }
 
     submitPassword = () => {
-        let body = {
-            password: this.state.password,
-        };
         fetch('/api/verify_user?password=' + this.state.password)
         .then(res => {
             if (res.status == 403) {
                 this.setState({
-                    links: {},
+                    links: [],
                 });
             } else if (res.status == 200) {
                 res.json()
