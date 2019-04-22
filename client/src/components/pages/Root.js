@@ -25,7 +25,7 @@ export default class Root extends Component {
                 <div className="rootInput">
                     <h1>View XLinks</h1>
                     <label htmlFor="password">Password: </label>
-                    <input className="rootPasswordInput" name="password" id="password" onChange={this.handleChange} value={this.state.password} placeholder="Input password to view xlinks." />
+                    <input className="rootPasswordInput" type="password" name="password" id="password" onChange={this.handleChange} value={this.state.password} placeholder="Input password to view xlinks." />
                     <button onClick={this.submitPassword}>Go!</button>
                 </div>
                 <div className="rootResult">
