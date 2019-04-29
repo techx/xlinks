@@ -79,7 +79,13 @@ export default class Root extends Component {
     }
 
     submitPassword = () => {
-        fetch('/api/verify_user?password=' + this.state.password)
+        fetch('/api/verify_user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({password: this.state.password}),
+        })
         .then(res => {
             if (res.status == 403) {
                 this.setState({

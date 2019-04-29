@@ -5,8 +5,8 @@ const fetch = require('node-fetch');
 const router = express.Router();
 
 // api endpoints
-router.get('/verify_user', function(req, res) {
-    if (req.query.password == "yamatos") {
+router.post('/verify_user', function(req, res) {
+    if (req.body.password == "yamatos") {
         fetch("https://x.techx.io/admin/api", {
             headers: {
                 'Accept': 'application/json',
